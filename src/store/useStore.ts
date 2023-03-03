@@ -13,8 +13,8 @@ interface CounterAction {
 
 export type CounterStore = CounterState & CounterAction;
 
-export const createCounterStore = (): StoreApi<CounterStore> =>
-    createStore<CounterStore>((set) => ({
+export const createCounterStore = (): StoreApi<CounterStore> => createStore<CounterStore>(
+    (set) => ({
         count: 0,
         increase: () => {
             set((state) => ({ count: state.count + 1 }));
@@ -22,6 +22,7 @@ export const createCounterStore = (): StoreApi<CounterStore> =>
         decrease: () => {
             set((state) => ({ count: state.count - 1 }));
         },
-    }));
+    }),
+);
 
-export const CounterContext = createContext<ReturnType<typeof createCounterStore>>(createCounterStore());
+export const CounterContext = createContext<ReturnType<typeof createCounterStore>>(<ReturnType<typeof createCounterStore>>{});
