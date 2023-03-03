@@ -1,5 +1,5 @@
-import { randomString } from '@/methods/common/randomString';
+import { uuid } from '@/methods/common/uuid';
 
 export {
-    randomString,
+    uuid,
 };

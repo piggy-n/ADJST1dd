@@ -1,7 +1,7 @@
-import { createContext } from 'react';
 import { createStore } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { action, initialState } from '@/store/Player';
+import { uuid } from '@/methods/common';
 import type { StoreApi } from 'zustand';
 import type { PlayerStore } from '@/store/Player';
 
@@ -11,13 +11,10 @@ export const createPlayerStore = (): StoreApi<PlayerStore> => createStore<Player
             set,
             get,
         ) => ({
+            uuid: uuid(),
             ...initialState,
             ...action(set, get),
         }),
         { name: 'PlayerStore' },
     ),
-);
-
-export const PlayerContext = createContext<ReturnType<typeof createPlayerStore>>(
-    <ReturnType<typeof createPlayerStore>>{},
 );

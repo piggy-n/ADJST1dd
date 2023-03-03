@@ -1,13 +1,17 @@
 import { action } from '@/store/Player/action';
+import { createPlayerStore } from '@/store/Player/create';
 import { initialState } from '@/store/Player/state';
-import { createPlayerStore, PlayerContext } from '@/store/Player/create';
+import { PlayerContext } from '@/store/Player/context';
+import { playerContextDefaultValue } from '@/store/Player/context';
 import type { PlayerStoreState } from '@/store/Player/state';
 import type { PlayerStoreAction } from '@/store/Player/action';
+
+export type PlayerStore = PlayerStoreState & PlayerStoreAction
 
 export {
     action,
     createPlayerStore,
     initialState,
     PlayerContext,
+    playerContextDefaultValue,
 };
-export type PlayerStore = PlayerStoreState & PlayerStoreAction;
