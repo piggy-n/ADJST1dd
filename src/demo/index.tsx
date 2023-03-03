@@ -1,9 +1,12 @@
 import { render } from 'react-dom';
+import Test from '@/kernel/Test';
 
 const Demo = () => {
     return (
         <>
-            Hello
+            <Test />
+            <br />
+            <Test />
         </>
     );
 };
