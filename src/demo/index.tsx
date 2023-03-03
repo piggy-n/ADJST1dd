@@ -1,12 +1,12 @@
 import { render } from 'react-dom';
-import Test from '@/T/Test';
+import { Player } from '@/index';
 
 const Demo = () => {
     return (
         <>
-            <Test />
+            <Player />
             <br />
-            <Test />
+            <Player />
         </>
     );
 };

@@ -1,3 +1,4 @@
+import { createContext } from 'react';
 import { createStore } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { action, initialState } from '@/store/Player';
@@ -15,4 +16,8 @@ export const createPlayerStore = (): StoreApi<PlayerStore> => createStore<Player
         }),
         { name: 'PlayerStore' },
     ),
+);
+
+export const PlayerContext = createContext<ReturnType<typeof createPlayerStore>>(
+    <ReturnType<typeof createPlayerStore>>{},
 );
