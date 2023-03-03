@@ -1,5 +1,5 @@
 import { CounterContext, createCounterStore } from '@/store/useStore';
-import Component from '@/kernel/Component';
+import Component from '@/T/Component';
 
 const Test = () => {
     const store = createCounterStore();

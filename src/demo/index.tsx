@@ -1,5 +1,5 @@
 import { render } from 'react-dom';
-import Test from '@/kernel/Test';
+import Test from '@/T/Test';
 
 const Demo = () => {
     return (

@@ -16,7 +16,7 @@ export type CounterStore = CounterState & CounterAction;
 
 export const createCounterStore = (): StoreApi<CounterStore> => createStore<CounterStore>()(
     devtools(
-        (set, get) => ({
+        (set) => ({
             count: 0,
             increase: () => {
                 set((state) => ({ count: state.count + 1 }));
