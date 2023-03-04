@@ -1,11 +1,11 @@
 import c from 'classnames';
 import s from './styles/player.scss';
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
 import { createPlayerStore, PlayerContext } from '@/store/Player';
-import { useVideoListener } from '@/utils/hooks';
 import { Video } from '@/kernel/Player';
 import type { PlayerRef, PlayerProps } from '@/index.d';
 import type { ForwardRefRenderFunction } from 'react';
+import VideoListener from '@/kernel/Player/VideoListener';
 
 const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     {
@@ -19,23 +19,17 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
 
     const videoEleRef = useRef<HTMLVideoElement>(null);
     const videoContainerEleRef = useRef<HTMLDivElement>(null);
-    const videoEleAttributes = useVideoListener(videoEleRef.current, store.setState);
 
-    useImperativeHandle(
-        ref,
-        () => ({
-            // ...playerMethods,
-            attributes: videoEleAttributes,
-            video: videoEleRef.current,
+    useEffect(
+        () => store.setState({
+            videoEle: videoEleRef.current,
+            videoContainerEle: videoContainerEleRef.current,
         }),
+        [videoEleRef.current, videoContainerEleRef.current],
     );
 
     return (
-        <PlayerContext.Provider value={{
-            store,
-            videoEle: videoEleRef.current,
-            videoContainerEle: videoContainerEleRef.current,
-        }}>
+        <PlayerContext.Provider value={store}>
             <div
                 id={`player-${uuid}`}
                 ref={videoContainerEleRef}
@@ -43,6 +37,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
                 className={c(s.container, videoContainerEleOpts?.className)}
             >
                 <Video ref={videoEleRef} />
+                <VideoListener />
             </div>
         </PlayerContext.Provider>
     );

@@ -1,37 +1,16 @@
-import { useMandatoryUpdate } from '@/utils/hooks';
-import { useLatest } from 'ahooks';
-import { useEffect, useMemo, useRef } from 'react';
-import { initialVideoEleAttributes } from '@/store/Player';
-import type { StoreApi } from 'zustand';
-import type { VideoEleAttributes } from '@/index.d';
-import type { PlayerStoreState } from '@/store/Player/state';
-import type { PlayerStoreAction } from '@/store/Player/action';
+import { useContext, useEffect, useRef } from 'react';
+import { PlayerContext } from '@/store/Player';
+import { useStore } from 'zustand';
 
-const useVideoListener = (
-    ele: HTMLVideoElement | null,
-    set: StoreApi<PlayerStoreState & PlayerStoreAction>['setState'],
-) => {
-    const forceUpdate = useMandatoryUpdate();
-    const latestVideoEleRef = useLatest(ele);
-    const videoEle = latestVideoEleRef.current;
-
+const VideoListener = () => {
+    const store = useContext(PlayerContext);
+    const { videoEle } = useStore(store);
     const videoListenerIntervalRef = useRef<NodeJS.Timer>();
-    const videoEleAttributesRef = useRef<VideoEleAttributes>({ ...initialVideoEleAttributes });
-
-    const setVideoEleAttributesHandler = <T extends Partial<VideoEleAttributes>>(val: T) => {
-        videoEleAttributesRef.current = { ...videoEleAttributesRef.current, ...val };
-    };
 
     const canPlayHandler = () => {
         if (!videoEle) return;
 
-        setVideoEleAttributesHandler({
-            totalTime: videoEle.duration,
-            videoWidth: videoEle.videoWidth,
-            videoHeight: videoEle.videoHeight,
-        });
-
-        set({
+        store.setState({
             canplay: true,
             totalTime: videoEle.duration,
             videoWidth: videoEle.videoWidth,
@@ -43,11 +22,7 @@ const useVideoListener = (
         if (!videoEle) return;
 
         if (videoEle.buffered.length >= 1) {
-            setVideoEleAttributesHandler({
-                bufferedTime: videoEle.buffered.end(0),
-            });
-
-            set({
+            store.setState({
                 bufferedTime: videoEle.buffered.end(0),
             });
         }
@@ -56,21 +31,13 @@ const useVideoListener = (
     const playOrPauseHandler = () => {
         if (!videoEle) return;
 
-        setVideoEleAttributesHandler({
-            playing: !videoEle.paused,
-        });
-
-        set({
+        store.setState({
             playing: !videoEle.paused,
         });
     };
 
     const errorHandler = () => {
-        setVideoEleAttributesHandler({
-            error: Date.now(),
-        });
-
-        set({
+        store.setState({
             error: Date.now(),
             canplay: false,
         });
@@ -79,38 +46,26 @@ const useVideoListener = (
     const endedHandler = () => {
         if (!videoEle) return;
 
-        setVideoEleAttributesHandler({
-            ended: videoEle.ended,
-        });
-
-        set({
+        store.setState({
             ended: videoEle.ended,
         });
     };
 
     const waitingHandler = () => {
-        setVideoEleAttributesHandler({
-            buffering: true,
-        });
-
-        set({
+        store.setState({
             buffering: true,
         });
     };
 
     const playingHandler = () => {
-        setVideoEleAttributesHandler({
-            buffering: false,
-        });
-
-        set({
+        store.setState({
             buffering: false,
         });
     };
 
     useEffect(
         () => {
-            if (!videoEle) return forceUpdate();
+            if (!videoEle) return;
 
             videoEle.addEventListener('canplay', canPlayHandler);
             videoEle.addEventListener('progress', progressHandler);
@@ -125,28 +80,10 @@ const useVideoListener = (
             videoListenerIntervalRef.current && clearInterval(videoListenerIntervalRef.current);
             videoListenerIntervalRef.current = setInterval(
                 () => {
-                    forceUpdate();
-
-                    setVideoEleAttributesHandler({
+                    store.setState({
                         currentTime: videoEle.currentTime,
-                        totalTime: videoEle.duration,
-                        playing: !videoEle.paused,
                         ended: videoEle.ended,
-                        networkState: videoEle.networkState,
-                        readyState: videoEle.readyState,
-                        videoWidth: videoEle.videoWidth,
-                        videoHeight: videoEle.videoHeight,
-                    });
-
-                    set({
-                        currentTime: videoEle.currentTime,
-                        totalTime: videoEle.duration,
                         playing: !videoEle.paused,
-                        ended: videoEle.ended,
-                        networkState: videoEle.networkState,
-                        readyState: videoEle.readyState,
-                        videoWidth: videoEle.videoWidth,
-                        videoHeight: videoEle.videoHeight,
                     });
                 },
                 1,
@@ -168,10 +105,7 @@ const useVideoListener = (
         [videoEle],
     );
 
-    return useMemo(
-        () => videoEleAttributesRef.current,
-        [videoEleAttributesRef.current],
-    );
+    return null;
 };
 
-export default useVideoListener;
+export default VideoListener;

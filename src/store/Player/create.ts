@@ -1,4 +1,5 @@
 import { createStore } from 'zustand';
+import { createContext } from 'react';
 import { devtools } from 'zustand/middleware';
 import { action, initialState } from '@/store/Player';
 import { uuid } from '@/utils/methods/common';
@@ -18,3 +19,5 @@ export const createPlayerStore = (): StoreApi<PlayerStore> => createStore<Player
         { name: 'PlayerStore' },
     ),
 );
+
+export const PlayerContext = createContext<StoreApi<PlayerStore>>(<StoreApi<PlayerStore>>{});

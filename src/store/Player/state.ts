@@ -2,6 +2,8 @@ import type { VideoEleAttributes } from '@/index.d';
 
 export interface PlayerStoreState extends VideoEleAttributes {
     uuid?: string;
+    videoEle?: HTMLVideoElement | null;
+    videoContainerEle?: HTMLDivElement | null;
 }
 
 export const initialVideoEleAttributes: VideoEleAttributes = {
