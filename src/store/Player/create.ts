@@ -1,7 +1,7 @@
 import { createStore } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { action, initialState } from '@/store/Player';
-import { uuid } from '@/methods/common';
+import { uuid } from '@/utils/methods/common';
 import type { StoreApi } from 'zustand';
 import type { PlayerStore } from '@/store/Player';
 
