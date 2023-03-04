@@ -70,6 +70,7 @@ export type VideoEleAttributes = {
     buffering: boolean;
     canplay: boolean;
     ended: boolean;
+    error: number;
     currentTime: number;
     totalTime: number;
     bufferedTime: number;
@@ -133,9 +134,11 @@ export type VideoCallback<T = noArgVoid, U = isArgVoid, K = VideoElementAttribut
  * @param PlayerMethods player组件方法
  * @param video video元素
  */
-export type PlayerRef = PlayerMethods
-    & { attributes: VideoElementAttributes }
-    & { video: HTMLVideoElement | null };
+// export type PlayerRef = PlayerMethods
+//     & { attributes: VideoElementAttributes }
+//     & { video: HTMLVideoElement | null };
+
+export type PlayerRef = { attributes: VideoElementAttributes } & { video: HTMLVideoElement | null };
 
 /**
  * @description Player组件属性

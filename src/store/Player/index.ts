@@ -1,6 +1,6 @@
 import { action } from '@/store/Player/action';
 import { createPlayerStore } from '@/store/Player/create';
-import { initialState } from '@/store/Player/state';
+import { initialState, initialVideoEleAttributes } from '@/store/Player/state';
 import { PlayerContext } from '@/store/Player/context';
 import { playerContextDefaultValue } from '@/store/Player/context';
 import type { PlayerStoreState } from '@/store/Player/state';
@@ -12,6 +12,7 @@ export {
     action,
     createPlayerStore,
     initialState,
+    initialVideoEleAttributes,
     PlayerContext,
     playerContextDefaultValue,
 };

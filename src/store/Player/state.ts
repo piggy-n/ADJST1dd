@@ -4,12 +4,12 @@ export interface PlayerStoreState extends VideoEleAttributes {
     uuid?: string;
 }
 
-export const initialState: PlayerStoreState = {
-    // videoEleAttributes
+export const initialVideoEleAttributes: VideoEleAttributes = {
     playing: false,
     buffering: false,
     canplay: false,
     ended: false,
+    error: 0,
     currentTime: 0,
     totalTime: 0,
     bufferedTime: 0,
@@ -17,4 +17,8 @@ export const initialState: PlayerStoreState = {
     videoHeight: 0,
     networkState: 0,
     readyState: 0,
+};
+
+export const initialState: PlayerStoreState = {
+    ...initialVideoEleAttributes,
 };

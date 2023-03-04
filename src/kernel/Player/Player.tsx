@@ -1,9 +1,11 @@
 import c from 'classnames';
 import s from './styles/player.scss';
-import { forwardRef, useRef } from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 import { createPlayerStore, PlayerContext } from '@/store/Player';
+import { Video } from '@/kernel/Player';
 import type { PlayerRef, PlayerProps } from '@/index.d';
 import type { ForwardRefRenderFunction } from 'react';
+import { useVideoListener } from '@/utils/hooks';
 
 const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     {
@@ -17,7 +19,16 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
 
     const videoEleRef = useRef<HTMLVideoElement>(null);
     const videoContainerEleRef = useRef<HTMLDivElement>(null);
+    const videoEleAttributes = useVideoListener(videoEleRef.current, store.setState);
 
+    useImperativeHandle(
+        ref,
+        () => ({
+            // ...playerMethods,
+            attributes: videoEleAttributes,
+            video: videoEleRef.current,
+        }),
+    );
     return (
         <PlayerContext.Provider value={{
             store,
@@ -30,7 +41,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
                 {...videoContainerEleOpts}
                 className={c(s.container, videoContainerEleOpts?.className)}
             >
-                {/*<Component />*/}
+                <Video ref={videoEleRef} />
             </div>
         </PlayerContext.Provider>
     );

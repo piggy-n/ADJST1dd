@@ -1,12 +1,17 @@
 import { render } from 'react-dom';
-import { Player } from '@/index';
+import Player from '@/kernel/Player';
 
 const Demo = () => {
     return (
         <>
-            <Player />
+            <div style={{
+                width: '5px',
+                height: '5px',
+            }}>
+                <Player />
+            </div>
             <br />
-            <Player />
+            {/*<Player />*/}
         </>
     );
 };
