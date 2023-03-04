@@ -2,10 +2,9 @@ import c from 'classnames';
 import s from './styles/player.scss';
 import { forwardRef, useEffect, useRef } from 'react';
 import { createPlayerStore, PlayerContext } from '@/store/Player';
-import { Video } from '@/kernel/Player';
+import { Video, VideoListener } from '@/kernel/Player';
 import type { PlayerRef, PlayerProps } from '@/index.d';
 import type { ForwardRefRenderFunction } from 'react';
-import VideoListener from '@/kernel/Player/VideoListener';
 
 const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     {
