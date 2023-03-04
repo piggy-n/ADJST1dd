@@ -5,8 +5,8 @@ const Demo = () => {
     return (
         <>
             <div style={{
-                width: '5px',
-                height: '5px',
+                width: '50px',
+                height: '50px',
             }}>
                 <Player />
             </div>

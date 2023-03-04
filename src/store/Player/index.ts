@@ -4,8 +4,6 @@ import { initialState, initialVideoEleAttributes } from '@/store/Player/state';
 import type { PlayerStoreState } from '@/store/Player/state';
 import type { PlayerStoreAction } from '@/store/Player/action';
 
-export type PlayerStore = PlayerStoreState & PlayerStoreAction
-
 export {
     action,
     createPlayerStore,
@@ -13,3 +11,6 @@ export {
     initialState,
     initialVideoEleAttributes,
 };
+export * from '@/store/Player/selector';
+export type PlayerStore = PlayerStoreState & PlayerStoreAction
+
