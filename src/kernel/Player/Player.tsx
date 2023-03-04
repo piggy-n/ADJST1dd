@@ -2,10 +2,10 @@ import c from 'classnames';
 import s from './styles/player.scss';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 import { createPlayerStore, PlayerContext } from '@/store/Player';
+import { useVideoListener } from '@/utils/hooks';
 import { Video } from '@/kernel/Player';
 import type { PlayerRef, PlayerProps } from '@/index.d';
 import type { ForwardRefRenderFunction } from 'react';
-import { useVideoListener } from '@/utils/hooks';
 
 const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     {
@@ -29,6 +29,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
             video: videoEleRef.current,
         }),
     );
+
     return (
         <PlayerContext.Provider value={{
             store,

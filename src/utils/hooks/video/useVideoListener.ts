@@ -31,12 +31,12 @@ const useVideoListener = (
             videoHeight: videoEle.videoHeight,
         });
 
-        set(() => ({
+        set({
             canplay: true,
             totalTime: videoEle.duration,
             videoWidth: videoEle.videoWidth,
             videoHeight: videoEle.videoHeight,
-        }));
+        });
     };
 
     const progressHandler = () => {
@@ -46,11 +46,11 @@ const useVideoListener = (
             setVideoEleAttributesHandler({
                 bufferedTime: videoEle.buffered.end(0),
             });
-        }
 
-        set(() => ({
-            bufferedTime: videoEle.buffered.end(0),
-        }));
+            set({
+                bufferedTime: videoEle.buffered.end(0),
+            });
+        }
     };
 
     const playOrPauseHandler = () => {
@@ -60,9 +60,9 @@ const useVideoListener = (
             playing: !videoEle.paused,
         });
 
-        set(() => ({
+        set({
             playing: !videoEle.paused,
-        }));
+        });
     };
 
     const errorHandler = () => {
@@ -70,10 +70,10 @@ const useVideoListener = (
             error: Date.now(),
         });
 
-        set(() => ({
+        set({
             error: Date.now(),
             canplay: false,
-        }));
+        });
     };
 
     const endedHandler = () => {
@@ -83,9 +83,9 @@ const useVideoListener = (
             ended: videoEle.ended,
         });
 
-        set(() => ({
+        set({
             ended: videoEle.ended,
-        }));
+        });
     };
 
     const waitingHandler = () => {
@@ -93,9 +93,9 @@ const useVideoListener = (
             buffering: true,
         });
 
-        set(() => ({
+        set({
             buffering: true,
-        }));
+        });
     };
 
     const playingHandler = () => {
@@ -103,9 +103,9 @@ const useVideoListener = (
             buffering: false,
         });
 
-        set(() => ({
+        set({
             buffering: false,
-        }));
+        });
     };
 
     useEffect(
@@ -128,6 +128,17 @@ const useVideoListener = (
                     forceUpdate();
 
                     setVideoEleAttributesHandler({
+                        currentTime: videoEle.currentTime,
+                        totalTime: videoEle.duration,
+                        playing: !videoEle.paused,
+                        ended: videoEle.ended,
+                        networkState: videoEle.networkState,
+                        readyState: videoEle.readyState,
+                        videoWidth: videoEle.videoWidth,
+                        videoHeight: videoEle.videoHeight,
+                    });
+
+                    set({
                         currentTime: videoEle.currentTime,
                         totalTime: videoEle.duration,
                         playing: !videoEle.paused,
