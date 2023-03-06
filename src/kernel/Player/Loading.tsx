@@ -37,10 +37,6 @@ const Loading = () => {
         [isLoading, isNotLoading],
     );
 
-    useEffect(() => {
-        console.log('loading', showLoadingIcon);
-    }, [showLoadingIcon]);
-
     if (!showLoadingIcon) return null;
     return (
         <div className={s.container}>
