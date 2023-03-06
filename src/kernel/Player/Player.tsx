@@ -8,6 +8,7 @@ import type { ForwardRefRenderFunction } from 'react';
 
 const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
     {
+        videoEleOpts,
         videoContainerEleOpts,
         ...rest
     },
@@ -42,7 +43,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
                 {...videoContainerEleOpts}
                 className={c(s.container, videoContainerEleOpts?.className)}
             >
-                <Video ref={videoEleRef} />
+                <Video ref={videoEleRef} opts={videoEleOpts} />
                 <Listener />
                 <PropsUpdater {...rest} />
                 <Loading />

@@ -1,9 +1,9 @@
-import { forwardRef } from 'react';
+import { forwardRef, VideoHTMLAttributes } from 'react';
 import type { ForwardRefRenderFunction } from 'react';
 // import defaultPoster from '@/assets/images/snap.png';
 
-const VanillaVideo: ForwardRefRenderFunction<HTMLVideoElement> = (
-    _,
+const VanillaVideo: ForwardRefRenderFunction<HTMLVideoElement, { opts?: VideoHTMLAttributes<HTMLVideoElement> }> = (
+    { opts },
     ref,
 ) => {
     return (
@@ -14,9 +14,9 @@ const VanillaVideo: ForwardRefRenderFunction<HTMLVideoElement> = (
             autoPlay
             crossOrigin={'anonymous'}
             // poster={defaultPoster}
-            // {...videoEleOpts}
+            {...opts}
         />
     );
 };
 
-export const Video = forwardRef<HTMLVideoElement>(VanillaVideo);
+export const Video = forwardRef<HTMLVideoElement, { opts?: VideoHTMLAttributes<HTMLVideoElement> }>(VanillaVideo);
