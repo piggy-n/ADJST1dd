@@ -9,16 +9,17 @@ const PropsUpdater: FC<PlayerProps> = (
         url,
         videoType,
         deviceOpts,
-        controlsOpts,
+        // controlsOpts,
     },
 ) => {
     const store = useContext(PlayerContext);
     const { setUrlAndVideoType, setUrlAndVideoTypeByDeviceOpts } = store.getState();
 
-    const { deviceId, urlPrefix, streamType = '1', channelType = '1' } = deviceOpts || {};
+    const { deviceId, urlPrefix, streamType, channelType } = deviceOpts || {};
 
     useEffect(
         () => {
+            console.log('PropsUpdater useEffect', url, videoType, deviceOpts);
             if (url) {
                 const isLive = /^ws:\/\/|^wss:\/\//.test(url);
                 return setUrlAndVideoType(url, videoType ?? (isLive ? 'live' : 'record'));

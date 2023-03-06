@@ -14,7 +14,7 @@ export const action = (
 ): PlayerStoreAction => ({
     setUrlAndVideoType: (url, videoType) => set({ url, videoType }),
     setUrlAndVideoTypeByDeviceOpts: async (deviceOpts, videoType?: VideoType) => {
-        const { streamType, channelType } = deviceOpts;
+        const { streamType = '1', channelType = '1' } = deviceOpts;
         const streamList = await obtainDeviceStreamList(deviceOpts);
         const streamInfo = streamList.find(item => item.streamTypeCode === streamType && item.channelCode === channelType);
         const streamUrl = streamInfo?.url ?? '';
