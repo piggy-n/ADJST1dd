@@ -5,7 +5,7 @@ import { useSize } from 'ahooks';
 
 const VideoListener = () => {
     const store = useContext(PlayerContext);
-    const { videoEle } = useStore(store);
+    const videoEle = useStore(store, s => s.videoEle);
     const videoEleSize = useSize(videoEle);
 
     const videoListenerIntervalRef = useRef<NodeJS.Timer>();
