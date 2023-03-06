@@ -1,27 +1,37 @@
 import { obtainDeviceStreamList } from '@/utils/methods/async/device';
+import { isObject } from 'lodash';
 import type { StoreApi } from 'zustand';
 import type { VideoType, DeviceOpts } from '@/index.d';
 import type { PlayerStoreState } from '@/store/Player/state';
 
 export interface PlayerStoreAction {
-    setUrlAndVideoType: (url: string, videoType: VideoType) => void;
-    setUrlAndVideoTypeByDeviceOpts: (deviceOpts: DeviceOpts, videoType?: VideoType) => void;
+    setUrlAndVideoType: (url?: string, videoType?: VideoType, deviceOpts?: DeviceOpts) => void;
 }
 
 export const action = (
     set: StoreApi<PlayerStoreState & PlayerStoreAction>['setState'],
     get: StoreApi<PlayerStoreState & PlayerStoreAction>['getState'],
 ): PlayerStoreAction => ({
-    setUrlAndVideoType: (url, videoType) => set({ url, videoType }),
-    setUrlAndVideoTypeByDeviceOpts: async (deviceOpts, videoType?: VideoType) => {
-        const { streamType = '1', channelType = '1' } = deviceOpts;
-        const streamList = await obtainDeviceStreamList(deviceOpts);
-        const streamInfo = streamList.find(item => item.streamTypeCode === streamType && item.channelCode === channelType);
-        const streamUrl = streamInfo?.url ?? '';
+    setUrlAndVideoType: async (url, videoType, deviceOpts) => {
+        const { deviceId, streamType = '1', channelType = '1' } = deviceOpts || {};
 
-        set({
-            url: streamUrl,
-            videoType: videoType === 'stream-record' ? 'stream-record' : 'live',
-        });
+        if (url) {
+            const isLive = /^ws:\/\/|^wss:\/\//.test(url);
+            return set({
+                url,
+                videoType: videoType ?? (isLive ? 'live' : 'record'),
+            });
+        }
+
+        if (isObject(deviceOpts) && deviceId) {
+            const streamList = await obtainDeviceStreamList(deviceOpts);
+            const streamInfo = streamList.find(item => item.streamTypeCode === streamType && item.channelCode === channelType);
+            const streamUrl = streamInfo?.url ?? '';
+
+            set({
+                url: streamUrl,
+                videoType: videoType === 'stream-record' ? 'stream-record' : 'live',
+            });
+        }
     },
 });
