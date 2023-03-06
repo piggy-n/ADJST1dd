@@ -1,6 +1,10 @@
 import type { VideoEleAttributes } from '@/index.d';
 
-export interface PlayerStoreState extends VideoEleAttributes {
+export interface PlayerIconState {
+    showLoadingIcon?: boolean;
+}
+
+export interface PlayerStoreState extends VideoEleAttributes, PlayerIconState {
     uuid?: string;
     videoEle?: HTMLVideoElement | null;
     videoContainerEle?: HTMLDivElement | null;

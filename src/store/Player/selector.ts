@@ -17,14 +17,15 @@ export const selectVideoAttributes = (s: PlayerStore): VideoEleAttributes => ({
     readyState: s.readyState,
 });
 
-export const selectVideoLoadingAttributes = (s: PlayerStore) => {
-    const { playing, buffering, readyState, networkState, videoEle } = s;
+export const selectVideoIsLoading = (s: PlayerStore) => {
+    const { playing, buffering } = s;
+    return playing && buffering;
+};
+
+export const selectVideoIsNotLoading = (s: PlayerStore) => {
+    const { playing, readyState, networkState, videoEle } = s;
     const inPlay = playing && [1, 2].includes(networkState) && [3, 4].includes(readyState);
     const inReady = !videoEle?.autoplay && readyState === 4;
-    const inBuffer = playing && buffering;
 
-    return {
-        isLoading: inBuffer,
-        isNotLoading: inPlay || inReady,
-    };
+    return inPlay || inReady;
 };

@@ -1,38 +1,48 @@
 import s from './styles/loading.scss';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { PlayerContext, selectVideoLoadingAttributes } from '@/store/Player';
 import { useStore } from 'zustand';
+import { useContext, useEffect, useRef } from 'react';
+import { PlayerContext, selectVideoIsLoading, selectVideoIsNotLoading } from '@/store/Player';
 
 const Loading = () => {
     const store = useContext(PlayerContext);
-    const { isLoading, isNotLoading } = useStore(store, selectVideoLoadingAttributes);
+    const isLoading = useStore(store, selectVideoIsLoading);
+    const isNotLoading = useStore(store, selectVideoIsNotLoading);
+    const showLoadingIcon = useStore(store, s => s.showLoadingIcon);
 
-    const [loading, setLoading] = useState(false);
     const loadingTimeoutRef = useRef<NodeJS.Timeout>();
 
     useEffect(
         () => {
+            console.log(1);
             loadingTimeoutRef.current && clearTimeout(loadingTimeoutRef.current);
 
             if (isLoading) {
                 loadingTimeoutRef.current = setTimeout(
-                    () => setLoading(true),
+                    () => store.setState({
+                        showLoadingIcon: true,
+                    }),
                     750,
                 );
             }
 
-            if (isNotLoading) setLoading(false);
+            if (isNotLoading) {
+                store.setState({
+                    showLoadingIcon: false,
+                });
+            }
 
-            return () => loadingTimeoutRef.current && clearTimeout(loadingTimeoutRef.current);
+            return () => {
+                loadingTimeoutRef.current && clearTimeout(loadingTimeoutRef.current);
+            };
         },
         [isLoading, isNotLoading],
     );
 
-    useEffect(()=>{
-        console.log('loading',loading);
-    },[loading])
+    useEffect(() => {
+        console.log('loading', showLoadingIcon);
+    }, [showLoadingIcon]);
 
-    if (!loading) return null;
+    if (!showLoadingIcon) return null;
     return (
         <div className={s.container}>
             {/*<Icon name={'loading'} size={24} />*/}

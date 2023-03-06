@@ -9,7 +9,7 @@ const VanillaVideo: ForwardRefRenderFunction<HTMLVideoElement> = (
     return (
         <video
             ref={ref}
-            src={'https://www.w3schools.com/html/mov_bbb.mp4'}
+            src={'https://gs-files.oss-cn-hongkong.aliyuncs.com/okr/test/file/2021/07/01/haiwang.mp4'}
             muted
             autoPlay
             crossOrigin={'anonymous'}
