@@ -88,6 +88,8 @@ const VideoListener = () => {
                         currentTime: videoEle.currentTime,
                         ended: videoEle.ended,
                         playing: !videoEle.paused,
+                        networkState: videoEle.networkState,
+                        readyState: videoEle.readyState,
                     });
                 },
                 1,

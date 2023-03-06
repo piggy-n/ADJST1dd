@@ -13,7 +13,6 @@ const Loading = () => {
 
     useEffect(
         () => {
-            console.log(1);
             loadingTimeoutRef.current && clearTimeout(loadingTimeoutRef.current);
 
             if (isLoading) {
