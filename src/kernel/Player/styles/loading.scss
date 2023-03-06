@@ -1,0 +1,15 @@
+@import "src/assets/styles/mixin.scss";
+
+.container {
+  @include fc(center);
+  @include style(12px, #EFF2F6);
+  z-index: 1;
+
+  p {
+    padding-top: 6px;
+  }
+
+  svg {
+    animation: loadingAni 1.5s linear infinite;
+  }
+}
