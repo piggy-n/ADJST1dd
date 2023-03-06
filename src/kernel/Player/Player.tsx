@@ -2,7 +2,7 @@ import c from 'classnames';
 import s from './styles/player.scss';
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import { createPlayerStore, PlayerContext } from '@/store/Player';
-import { Loading, Video, VideoListener } from '@/kernel/Player';
+import { Loading, Listener, Video } from '@/kernel/Player';
 import type { PlayerRef, PlayerProps } from '@/index.d';
 import type { ForwardRefRenderFunction } from 'react';
 
@@ -43,7 +43,7 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
                 className={c(s.container, videoContainerEleOpts?.className)}
             >
                 <Video ref={videoEleRef} />
-                <VideoListener />
+                <Listener />
                 <Loading />
             </div>
         </PlayerContext.Provider>

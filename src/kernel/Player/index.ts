@@ -1,11 +1,11 @@
 import { Player } from './Player';
 import { Video } from './Video';
-import VideoListener from './VideoListener';
+import Listener from './Listener';
 import Loading from './Loading';
 
 export {
     Video,
-    VideoListener,
+    Listener,
     Loading,
 };
 export default Player;

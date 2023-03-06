@@ -3,7 +3,7 @@ import { PlayerContext } from '@/store/Player';
 import { useStore } from 'zustand';
 import { useSize } from 'ahooks';
 
-const VideoListener = () => {
+const Listener = () => {
     const store = useContext(PlayerContext);
     const videoEle = useStore(store, s => s.videoEle);
     const videoEleSize = useSize(videoEle);
@@ -133,4 +133,4 @@ const VideoListener = () => {
     return null;
 };
 
-export default VideoListener;
+export default Listener;
