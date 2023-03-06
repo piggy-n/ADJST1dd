@@ -8,7 +8,7 @@ const PropsUpdater: FC<PlayerProps> = (
         url,
         videoType,
         deviceOpts,
-        // controlsOpts,
+        controlsOpts,
     },
 ) => {
     const store = useContext(PlayerContext);
@@ -18,6 +18,10 @@ const PropsUpdater: FC<PlayerProps> = (
         () => setUrlAndVideoType(url, videoType, deviceOpts),
         [url, videoType, { ...deviceOpts }],
     );
+
+    useEffect(
+        () => store.setState({ controlsOpts }),
+        [{ ...controlsOpts }]);
 
     return null;
 };

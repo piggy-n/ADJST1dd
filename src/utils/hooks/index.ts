@@ -1,5 +1,5 @@
-import useMandatoryUpdate from '@/utils/hooks/common/useMandatoryUpdate';
-import useWindowClient from '@/utils/hooks/common/useWindowClient';
+import useMandatoryUpdate from '@/utils/hooks/useMandatoryUpdate';
+import useWindowClient from '@/utils/hooks/useWindowClient';
 
 export {
     useMandatoryUpdate,

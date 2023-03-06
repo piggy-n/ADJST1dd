@@ -12,7 +12,11 @@ export const action = (
     set: StoreApi<PlayerStoreState & PlayerStoreAction>['setState'],
     get: StoreApi<PlayerStoreState & PlayerStoreAction>['getState'],
 ): PlayerStoreAction => ({
-    setUrlAndVideoType: async (url, videoType, deviceOpts) => {
+    setUrlAndVideoType: async (
+        url,
+        videoType,
+        deviceOpts,
+    ) => {
         const { deviceId, streamType = '1', channelType = '1' } = deviceOpts || {};
 
         if (url) {
