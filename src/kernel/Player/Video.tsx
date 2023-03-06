@@ -1,5 +1,5 @@
-import { forwardRef, VideoHTMLAttributes } from 'react';
-import type { ForwardRefRenderFunction } from 'react';
+import { forwardRef } from 'react';
+import type { ForwardRefRenderFunction,VideoHTMLAttributes } from 'react';
 // import defaultPoster from '@/assets/images/snap.png';
 
 const VanillaVideo: ForwardRefRenderFunction<HTMLVideoElement, { opts?: VideoHTMLAttributes<HTMLVideoElement> }> = (
