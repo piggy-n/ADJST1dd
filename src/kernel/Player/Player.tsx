@@ -1,6 +1,6 @@
 import c from 'classnames';
 import s from './styles/player.scss';
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import { createPlayerStore, PlayerContext } from '@/store/Player';
 import { Video, VideoListener } from '@/kernel/Player';
 import type { PlayerRef, PlayerProps } from '@/index.d';
@@ -25,6 +25,13 @@ const VanillaPlayer: ForwardRefRenderFunction<PlayerRef, PlayerProps> = (
             videoContainerEle: videoContainerEleRef.current,
         }),
         [videoEleRef.current, videoContainerEleRef.current],
+    );
+
+    useImperativeHandle(
+        ref,
+        () => ({
+            video: videoEleRef.current,
+        }),
     );
 
     return (
