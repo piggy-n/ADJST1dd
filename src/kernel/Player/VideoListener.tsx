@@ -1,11 +1,15 @@
 import { useContext, useEffect, useRef } from 'react';
 import { PlayerContext } from '@/store/Player';
 import { useStore } from 'zustand';
+import { useSize } from 'ahooks';
 
 const VideoListener = () => {
     const store = useContext(PlayerContext);
     const { videoEle } = useStore(store);
+    const videoEleSize = useSize(videoEle);
+
     const videoListenerIntervalRef = useRef<NodeJS.Timer>();
+    const videoResizingTimeoutRef = useRef<NodeJS.Timeout>();
 
     const canPlayHandler = () => {
         if (!videoEle) return;
@@ -103,6 +107,25 @@ const VideoListener = () => {
             };
         },
         [videoEle],
+    );
+
+    useEffect(
+        () => {
+            store.setState({
+                resizing: true,
+            });
+
+            videoResizingTimeoutRef.current && clearTimeout(videoResizingTimeoutRef.current);
+            videoResizingTimeoutRef.current = setTimeout(
+                () => store.setState({
+                    resizing: false,
+                }),
+                250,
+            );
+
+            return () => videoResizingTimeoutRef.current && clearTimeout(videoResizingTimeoutRef.current);
+        },
+        [videoEleSize],
     );
 
     return null;

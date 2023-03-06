@@ -70,6 +70,7 @@ export type VideoEleAttributes = {
     buffering: boolean;
     canplay: boolean;
     ended: boolean;
+    resizing: boolean;
     error: number;
     currentTime: number;
     totalTime: number;

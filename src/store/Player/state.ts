@@ -11,6 +11,7 @@ export const initialVideoEleAttributes: VideoEleAttributes = {
     buffering: false,
     canplay: false,
     ended: false,
+    resizing: false,
     error: 0,
     currentTime: 0,
     totalTime: 0,
