@@ -125,7 +125,9 @@ const Listener = () => {
                 250,
             );
 
-            return () => videoResizingTimeoutRef.current && clearTimeout(videoResizingTimeoutRef.current);
+            return () => {
+                videoResizingTimeoutRef.current && clearTimeout(videoResizingTimeoutRef.current);
+            };
         },
         [videoEleSize],
     );

@@ -1,11 +1,11 @@
 import type { PlayerStore } from '@/store/Player/index';
 
-export const selectVideoIsLoading = (s: PlayerStore) => {
+export const selectVideoIsLoading = (s: PlayerStore): boolean => {
     const { playing, buffering } = s;
     return playing && buffering;
 };
 
-export const selectVideoIsNotLoading = (s: PlayerStore) => {
+export const selectVideoIsNotLoading = (s: PlayerStore): boolean => {
     const { playing, readyState, networkState, videoEle } = s;
     const inPlay = playing && [1, 2].includes(networkState) && [3, 4].includes(readyState);
     const inReady = !videoEle?.autoplay && readyState === 4;
